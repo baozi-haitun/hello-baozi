@@ -2,7 +2,7 @@
 
 import $ from "jquery";  //VS import Vue from 'vue'
 
-var token = "bbd0852b9a79e3712d28fbf28a57235c"
+var token = "ba271cb7990495ac11751679113b0737"
 export function getTypes(callback) {
     $.ajax({
         url: "https://www.senyuan88.cn/cargo/infoTypes",
@@ -19,6 +19,11 @@ export function getTypes(callback) {
 }
 
 export function getData(call, tag, page = 0) {
+    if (getData.isLoading) {    //getData.isLoading=false
+        return
+    }
+
+    getData.isLoading = true;
     $.ajax({
         url: `https://www.senyuan88.cn/cargo/info?page=${page}&tag=${tag}&level=4&needExcept=0`,
         params: {},
@@ -26,10 +31,17 @@ export function getData(call, tag, page = 0) {
             token
         },
         success(res) {
-            return call && call(res.data.list);
+            if (res.code == 0) {
+                return call && call(res.data.list);
+            } else {
+                console.log("错误", res)
+            }
         },
         error(err) {
             console.log(err)
+        },
+        complete() {  //!!!
+            getData.isLoading = false
         }
     })
 }
@@ -67,4 +79,11 @@ export function loc(region) {
     return location;
 }
 
-
+export function down(callback) {
+    window.onscroll = () => {
+        var h = document.body.scrollHeight - (document.documentElement.scrollTop + innerHeight)
+        if (h == 0) {
+            callback()
+        }
+    }
+}

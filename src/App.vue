@@ -9,7 +9,12 @@
     <typesBox @tapChange="tapChange"></typesBox>
 
     <!-- tag传入  -->
-    <contentBox :tag="currentTag" :name="currentName"></contentBox>
+
+    <router-link to="/detail">
+      <router-view>
+        <contentBox :tag="currentTag" :name="currentName"> </contentBox>
+      </router-view>
+    </router-link>
 
     <footer class="footer-box">
       <ul class="footer-list">
@@ -103,15 +108,15 @@ export default {
 .footer-list-content-icon {
   width: 22px;
   height: 21px;
-  background-image: url(./assets/exchange-icon.png);
+  background-image: url(./assets/images/exchange-icon.png);
   /* ???图片路径 */
   background-size: 22px;
   background-repeat: no-repeat;
 }
 .footer-icon-note {
-  background-image: url(./assets/note-icon.png);
+  background-image: url(./assets/images/note-icon.png);
 }
 .footer-icon-my {
-  background-image: url(./assets/my-icon.png);
+  background-image: url(./assets/images/my-icon.png);
 }
 </style>

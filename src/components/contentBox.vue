@@ -1,6 +1,5 @@
 <template>
   <div class="sec-mb">
-    <!-- {{ name }} -->
     <contentItem
       v-for="item in sec"
       :key="item.id"
@@ -13,6 +12,7 @@
 <script>
 import { getData } from "../services/index.js"; //import {函数名} from 位置
 import contentItem from "./contentItem.vue";
+import { down } from "../services/index.js";
 
 export default {
   props: {
@@ -25,22 +25,42 @@ export default {
   data() {
     return {
       sec: [],
-      //   item: {},
+      page: 0,
     };
   },
   methods: {
+    //局部函数储存
     getDataFn() {
-      getData((res) => {
-        this.sec = res;
-      }, this.tag);
+      console.log(22);
+      getData(
+        (res) => {
+          // for (let item of res) {
+          //   this.sec.push(item); //不能追加数组，应追加数组的项目
+          // }
+          var newArr = this.sec.concat(res);
+          console.log(newArr);
+          this.sec = newArr;
+        },
+        this.tag,
+        this.page
+      );
     },
   },
   created() {
+    //执行环境
     this.getDataFn();
+    down(() => {
+      // if () {
+      this.page++;
+      // }
+      this.getDataFn();
+    });
   },
   watch: {
+    //执行环境
     tag: function (a, b) {
-      console.log(this.tag, this.name);
+      this.sec = [];
+      this.page = 0;
       this.getDataFn(); //调用methods中的局部函数
     },
   },
