@@ -1,6 +1,6 @@
  <!-- 视图区域，dom结构 -->
 <template>
-  <div>
+  <div id="app">
     <header class="header-box">
       <h5 class="head">行情资讯</h5>
     </header>
@@ -10,11 +10,7 @@
 
     <!-- tag传入  -->
 
-    <!-- <router-link to="/detail">
-      <router-view> -->
     <contentBox :tag="currentTag" :name="currentName"> </contentBox>
-    <!-- </router-view>
-    </router-link> -->
 
     <footer class="footer-box">
       <ul class="footer-list">
@@ -43,14 +39,13 @@
 
 <script>
 // import HelloWorld from "../components/HelloWorld.vue";
-import TypesBox from "../components/typesBox.vue"; //(引入)组件
+import typesBox from "../components/typesBox.vue"; //(引入)组件
 import contentBox from "../components/contentBox.vue";
 
 export default {
-  name: "App", //???
   components: {
     // HelloWorld,
-    TypesBox, //局部(注册)引入的组件
+    typesBox, //局部(注册)引入的组件
     contentBox,
   },
   data() {
@@ -68,7 +63,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #app {
   background-color: #f8f8f8;
   font-size: 14px;

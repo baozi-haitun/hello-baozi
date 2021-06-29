@@ -3,18 +3,32 @@
 import $ from "jquery";  //VS import Vue from 'vue'
 
 var token = "ba271cb7990495ac11751679113b0737"
-export function getTypes(callback) {
-    $.ajax({
-        url: "https://www.senyuan88.cn/cargo/infoTypes",
-        headers: {
-            token
-        },
-        success(res) {
-            return callback && callback(res.data);  //==return callback
-        },
-        error(err) {
-            console.log(err)
+let types = null;
+export function getTypes() {
+    return new Promise((resolve, reject) => {
+        if (types) {
+            return setTimeout(() => {
+                resolve(types);
+            }, 1000);
         }
+
+        $.ajax({
+            url: "https://www.senyuan88.cn/cargo/infoTypes",
+            headers: {
+                token
+            },
+            success(res) {
+                if (res.code != 0) {   //数据连接畅通
+                    return reject(res.msg);
+                }
+
+                types = res.data;
+                resolve(res.data);
+            },
+            error(err) {   //数据连接又问题，404
+                reject(err);
+            }
+        })
     })
 }
 
@@ -46,21 +60,6 @@ export function getData(call, tag, page = 0) {
     })
 }
 
-//详情页
-export function getInfo(call, id) {    //id在sec里面找 ??
-    $.ajax({
-        url: `https://www.senyuan88.cn/cargo/info/${id}`,
-        headers: {
-            token
-        },
-        success(res) {
-            return call && call(res.data);
-        },
-        error(err) {
-            console.log(err)
-        }
-    })
-}
 
 export function time(at) {
     var day = new Date(at);
@@ -86,4 +85,22 @@ export function down(callback) {
             callback()
         }
     }
+}
+
+//详情页
+export function getInfo(id) {    //id在sec里面找 ??
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: `https://www.senyuan88.cn/cargo/info/${id}`,
+            headers: {
+                token
+            },
+            success(res) {
+                resolve(res.data);
+            },
+            error(err) {
+                reject(err)
+            }
+        })
+    })
 }

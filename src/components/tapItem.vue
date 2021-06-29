@@ -29,7 +29,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* 位置 */
 .nav {
   margin-top: 8px;

@@ -12,12 +12,12 @@
 </template>
 
 <script>
-import TapItem from "./tapItem.vue";
+import tapItem from "./tapItem.vue";
 import { getTypes } from "../services/index.js"; //import {函数名} from 位置
 
 export default {
   components: {
-    TapItem,
+    tapItem,
   },
   data() {
     return {
@@ -29,6 +29,7 @@ export default {
     getTypes((res) => {
       this.types = res;
     });
+    console.log(333, this.types); //？？？
   },
   methods: {
     //tap切换

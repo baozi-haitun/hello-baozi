@@ -67,7 +67,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .sec-mb {
   padding-bottom: 50px;
 }

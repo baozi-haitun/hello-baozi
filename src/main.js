@@ -6,7 +6,7 @@ import VueRouter from 'vue-router'
 Vue.config.productionTip = false  //???
 Vue.use(VueRouter)
 import Detail from './view/Detail.vue'
-import Index from './view/index.vue'
+import Index from './view/Index.vue'
 import App from './App.vue'
 
 

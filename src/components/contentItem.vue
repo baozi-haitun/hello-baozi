@@ -1,5 +1,5 @@
 <template>
-  <a class="sec-box-link">
+  <div class="sec-box-link" :key="content.id" @click="click">
     <div class="sec-header-box">
       <div class="sec-header">
         <img class="sec-header-img" :src="content.avatarUrl" />
@@ -45,7 +45,7 @@
         {{ loc(content.region) }}
       </p>
     </div>
-  </a>
+  </div>
 </template>
 
 <script>
@@ -57,14 +57,18 @@ export default {
     content: Object,
     name: String,
   },
+
   methods: {
     time,
     loc,
+    click() {
+      this.$router.push("/detail?id=" + this.content.id);
+    },
   },
 };
 </script>
 
-<style>
+<style scoped>
 .sec-box-market-link {
   display: block;
   height: 223px;
